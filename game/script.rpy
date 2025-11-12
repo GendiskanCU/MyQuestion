@@ -4,7 +4,12 @@ define y = Character('Yo', color="#c8c8ff")
 image silvia sonriendo = "silvia verde sonriendo"
 image silvia sorprendida = "silvia verde sorprendida"
 
+#Variable para controlar si el jugador ha elegido videojuego o libro interactivo
+default libro = False
+
 label start:
+
+    play music intro
         
     s "¡Hola! ¿Qué tal la clase?"
 
@@ -16,7 +21,10 @@ label start:
 
     s "¡Claro!"    
 
-    scene bg meadow        
+    play music meadow fadeout 1.0 fadein 1.0
+
+    scene bg meadow
+    with fade        
 
     "Al poco rato, llegamos a las praderas que hay justo a las afueras del barrio donde vivimos."
 
@@ -24,7 +32,10 @@ label start:
 
     "Cuando éramos niños, jugábamos mucho en estas praderas, así que están llenas de recuerdos."
 
-    show silvia sonriendo at center        
+    show silvia sonriendo at center
+    with dissolve        
+
+    play sound sonrisa
 
     "Se gira hacia mí y sonríe. Su mirada es tan acogedora que siento cómo se desvanecen mis nervios."
 
@@ -32,15 +43,58 @@ label start:
 
     y "Mmmm... ¿Quieres...?"
 
-    y "¿Quieres ser mi ilustradora para una novela visual?"
+    y "¿Quieres ser mi ilustradora para una novela visual?"    
 
-    show silvia sorprendida at center        
+    show silvia sorprendida at center
+    with dissolve
 
-    "Silencio."
+    play sound sorpresa
+
+    "Silencio."    
+    
+    pause 1.0
+
+    show silvia sonriendo at center
+    with dissolve
 
     s "¡Me pongo a ello enseguida!!!"
 
-    hide silvia verde sorprendida
+    s "Pero... ¿Qué es una novela visual?"
 
-    y "Eso no era lo que quería decir..."
+menu:
+
+    "Es un videojuego.":
+        jump videojuego
+
+    "Es un libro interactivo.":
+        jump libroInteractivo
+
+label videojuego:
+
+    y "Es un tipo de vieojuego que puedes jugar en ordenador o consola."    
+
+    jump duo
+
+label libroInteractivo:
+    
+    y "Es una especie de libro interactivo, que puedes leer desde el ordenador o consola."
+
+    $ libro = True
+
+    jump duo
+
+label duo:
+
+    if libro:
+
+        "Y así, comenzamos a crear juntos nuestro primer libro interactivo."
+
+    else:
+
+        "Y así, comenzamos a crear juntos nuestro primer videojuego."
+
+
+    "--- FIN ---"
+
+    return
 
